@@ -1,0 +1,146 @@
+FROM infrastlabs/docker-headless:core as core
+FROM infrastlabs/docker-headless:base-v5
+
+# kubuntu-desktop 273 MB # 7054 kB #plasma-desktop 已装
+RUN mkdir -p /etc/apt/sources.list.d; \
+cd /etc/apt/sources.list.d; \
+export DIST=focal; \
+echo "deb http://ppa.launchpad.net/elementary-os/stable/ubuntu $DIST main "> elementary.list; \
+echo "deb http://ppa.launchpad.net/elementary-os/os-patches/ubuntu $DIST main" >> elementary.list; \
+# deb http://packages.elementary.io/appcenter $DIST main
+echo "deb http://packages.elementary.io/appcenter bionic main" >> elementary.list; \
+\
+apt-key adv --keyserver keyserver.ubuntu.com --recv 4E1F8A59 FE70B91C; 
+# apt-get update
+
+# ele: 123 MB(non-deps..) > 926 MB(with recommends)
+# https://github.com/fkrull/VM-Park/blob/61f3af98622fa9341d27af432cafde8f5ee134d1/provision/install-desktop-elementary.sh
+RUN apt.sh elementary-minimal elementary-standard elementary-desktop
+
+# 7082 kB
+# gnome-session-bin gnome-settings-daemon
+# pantheon \
+# pantheon-shell \
+RUN apt.sh pantheon-shell
+
+# elementary-icon-theme 
+RUN apt.sh \
+elementary-default-settings \
+elementary-artwork 
+
+RUN apt.sh \
+slingshot-launcher xdg-desktop-portal xdg-desktop-portal-gtk \
+plank
+
+##ele32-lite-pkgsize.txt: existed.
+# 48.70 Mbs	elementary-wallpapers
+# 57.17 Mbs	libwebkit2gtk-4.0-37
+RUN apt.sh elementary-wallpapers
+
+# PANTHEON
+RUN apt.sh \
+pantheon-files \
+pantheon-agent-polkit \
+pantheon-agent-geoclue2 \
+pantheon-xsession-settings \
+libpantheon-files-core0 \
+switchboard-plug-pantheon-shell 
+
+# 18.4 MB
+RUN apt.sh \
+io.elementary.sound-theme \
+io.elementary.notifications \
+io.elementary.settings-daemon \
+io.elementary.onboarding \
+io.elementary.shortcut-overlay \
+io.elementary.wingpanel \
+io.elementary.terminal \
+io.elementary.switchboard.wacom \
+io.elementary.greeter \
+io.elementary.sideload \
+io.elementary.stylesheet \
+io.elementary.portals \
+io.elementary.initial-setup
+
+
+# dbg
+# wingpanel 896 kB
+RUN apt.sh \
+libwingpanel3 \
+io.elementary.wingpanel \
+wingpanel-indicator-a11y \
+wingpanel-indicator-keyboard \
+wingpanel-indicator-nightlight \
+wingpanel-indicator-sound \
+wingpanel-indicator-notifications \
+wingpanel-indicator-session \
+wingpanel-indicator-datetime 
+
+# switchboard
+RUN apt.sh \
+io.elementary.switchboard.wacom \
+switchboard \
+switchboard-plug-a11y \
+switchboard-plug-about \
+switchboard-plug-applications \
+switchboard-plug-notifications \
+switchboard-plug-mouse-touchpad \
+switchboard-plug-locale \
+switchboard-plug-display \
+switchboard-plug-sound \
+switchboard-plug-useraccounts \
+switchboard-plug-security-privacy \
+switchboard-plug-keyboard \
+switchboard-plug-datetime
+
+# TODO: gala-multitaskingview.desktop >> dbus-send.
+# ADD src/v1.5/ele/ele-start.sh /
+
+# ubuntu-desktop 128 MB ##test mising
+RUN \
+  apt.sh ubuntu-desktop; \
+  apt -y remove gdm3  gvfs*
+
+
+# CORE
+COPY --from=core /rootfs/bin /
+COPY --from=core /rootfs/conf /
+RUN bash /xconf.sh
+
+RUN systemctl disable lightdm; \
+  systemctl mask lightdm; \
+  systemctl disable plymouth; \
+  # systemctl disable de-start; \
+  \
+  cp /usr/share/gnome-session/sessions/pantheon.session /usr/share/gnome-session/sessions/ubuntu.session
+
+# HEADLESS
+ADD --chown=headless:headless src/.config /home/headless/.config
+ADD --chown=headless:headless src/ele/autostart /home/headless/.config/autostart
+ADD src/ele/sessions /usr/share/gnome-session/sessions
+
+# gome: systemd启动后， 如下命令手动可启(sv启动时，再手动则出错)
+# export XDG_SESSION_TYPE=x11; export XKL_XMODMAP_DISABLE=1; unset SESSION_MANAGER; unset DBUS_SESSION_BUS_ADDRESS; 
+# dbus-launch gnome-session
+# 
+# gnome-session --builtin --session=pantheon
+# dbus-launch gnome-session --builtin --session=pantheon --debug
+# 
+# de-start.service OK: (mv /etc/xdg/autostart; 无任何启动程序> 手动启样试为gnome的)
+# cp /usr/share/gnome-session/sessions/pantheon.session /usr/share/gnome-session/sessions/ubuntu.session
+# 
+# 
+# sleep 0.3
+# io.elementary.wingpanel &
+# sleep 0.3 #wait, --or: panel超出窗口顶部??
+# gala #gala last
+
+# +plank
+# export XDG_DESKTOP_TYPE=x11
+
+
+ENV \
+  XDG_DESKTOP_TYPE=x11 \
+  START_SESSION="gnome-session --builtin --session=ubuntu" \
+  # START_SESSION="gnome-session --builtin --session=pantheon" \
+  START_SYSTEMD=true

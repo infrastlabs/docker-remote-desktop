@@ -15,6 +15,31 @@ ubt2004|Mint|cinna|xx
 ubt2004|Mint|xfce|xfwm
 ubt2004|Box|flux|flux
 
+```bash
+# gnome: ele > gala,wingpannel
+- ele32: 
+install-desktop-elementary.sh安装版2：
+  dcp启动> su headless > gala & > io.ele.wingpanel > 手动调desk背景 #allOK
+
+# ele debug
+docker run -it --rm --net=host --shm-size 1g -e VNC_OFFSET=99   --tmpfs /run --tmpfs /run/lock --tmpfs /tmp -v /sys/fs/cgroup:/sys/fs/cgroup:rw   --cap-add SYS_BOOT --cap-add SYS_ADMIN -e START_SESSION="gnome-session --builtin --session=pantheon" infrastlabs/docker-headless:elementary
+
+# sysd's start fail: headless下手动可启
+export DISPLAY=:99
+export HOME=/home/headless
+export USER=headless
+export SHELL=/bin/bash
+export TERM=xterm
+#setlocale> lang
+export LANG=zh_CN.UTF-8
+export LANGUAGE=zh_CN:en
+
+source /.env;  
+export XDG_SESSION_TYPE=x11; export XKL_XMODMAP_DISABLE=1; 
+unset SESSION_MANAGER; unset DBUS_SESSION_BUS_ADDRESS; 
+exec dbus-launch --exit-with-session gnome-session --builtin --session=ubuntu |grep WARN #pantheon
+
+```
 
 ## 使用
 

@@ -41,6 +41,13 @@ plasma)
     cache="--cache-from type=registry,ref=$ali/$ns/$cimg --cache-to type=registry,ref=$ali/$ns/$cimg"
     docker  buildx build $cache $plat --push -t $repo/$ns/$img -f src/Dockerfile.plasma . 
     ;;
+elemen)
+    img="docker-headless:elementary"
+    plat="--platform linux/amd64" #,linux/arm64
+    cimg="docker-headless-cache:elementary"
+    cache="--cache-from type=registry,ref=$ali/$ns/$cimg --cache-to type=registry,ref=$ali/$ns/$cimg"
+    docker  buildx build $cache $plat --push -t $repo/$ns/$img -f src/Dockerfile.elemen . 
+    ;;    
 *)
     img="docker-headless:gnome"
     plat="--platform linux/amd64,linux/arm64" #,linux/arm
