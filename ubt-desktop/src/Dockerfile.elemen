@@ -51,16 +51,19 @@ RUN apt.sh \
 io.elementary.sound-theme \
 io.elementary.notifications \
 io.elementary.settings-daemon \
-io.elementary.onboarding \
+# 初始设置页
+# io.elementary.onboarding \
 io.elementary.shortcut-overlay \
 io.elementary.wingpanel \
 io.elementary.terminal \
 io.elementary.switchboard.wacom \
-io.elementary.greeter \
+# io.elementary.greeter \
 io.elementary.sideload \
 io.elementary.stylesheet \
-io.elementary.portals \
-io.elementary.initial-setup
+# io.elementary.initial-setup \
+# gala> xfwm4
+xfwm4 \
+io.elementary.portals 
 
 
 # dbg
@@ -97,9 +100,9 @@ switchboard-plug-datetime
 # ADD src/v1.5/ele/ele-start.sh /
 
 # ubuntu-desktop 128 MB ##test mising
-RUN \
-  apt.sh ubuntu-desktop; \
-  apt -y remove gdm3  gvfs*
+# RUN \
+#   apt.sh ubuntu-desktop; \
+#   apt -y remove gdm3  gvfs*
 
 
 # CORE
@@ -107,7 +110,11 @@ COPY --from=core /rootfs/bin /
 COPY --from=core /rootfs/conf /
 RUN bash /xconf.sh
 
-RUN systemctl disable lightdm; \
+# gdm3
+RUN apt -y remove gvfs* xterm; \
+  # apt -y remove update-manager software-properties-common;
+  \
+  systemctl disable lightdm; \
   systemctl mask lightdm; \
   systemctl disable plymouth; \
   # systemctl disable de-start; \
@@ -141,6 +148,6 @@ ADD src/ele/sessions /usr/share/gnome-session/sessions
 
 ENV \
   XDG_DESKTOP_TYPE=x11 \
-  START_SESSION="gnome-session --builtin --session=ubuntu" \
-  # START_SESSION="gnome-session --builtin --session=pantheon" \
+  # START_SESSION="gnome-session --builtin --session=ubuntu" \
+  START_SESSION="gnome-session --builtin --session=pantheon" \
   START_SYSTEMD=true
