@@ -32,4 +32,4 @@ jobs:
           export DOCKER_REGISTRY_PW_dockerhub=${{ secrets.DOCKER_REGISTRY_PW_DOCKERHUB }}
 
           # BUILD
-          echo core; cd ubt-desktop; sh buildx.sh elemen
+          echo core; cd ubt-desktop; sh buildx.sh neon #elemen
