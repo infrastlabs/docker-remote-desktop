@@ -1,0 +1,158 @@
+FROM infrastlabs/docker-headless:core as core
+FROM infrastlabs/docker-headless:base-v5
+
+ADD .neon/public.key /tmp/
+# https://github.com/KDE/docker-neon/blob/Neon/stable/neon.list
+# deb https://mirrors.bfsu.edu.cn/kde-neon/user focal main
+RUN echo "deb http://archive.neon.kde.org/testing focal main">> /etc/apt/sources.list; \
+  apt-key add /tmp/public.key
+
+# NEON 312 MB
+# https://github.com/KDE/docker-neon/blob/Neon/stable/Dockerfile
+RUN apt.sh neon-desktop \
+  plasma-systemmonitor dolphin
+
+# 32.5 MB
+RUN apt.sh \
+# docker-neon \
+kde-cli-tools \
+kde-cli-tools-data \
+kde-config-gtk-style \
+kde-config-gtk-style-preview \
+kde-config-plymouth \
+kde-config-screenlocker \
+kde-config-sddm \
+kde-config-updates \
+kdeconnect \
+kded5 \
+kdegraphics-thumbnailers \
+kde-nomodeset \
+kdeplasma-addons-data \
+kde-spectacle \
+kde-style-breeze \
+kde-style-oxygen-qt5 \
+kpackagelauncherqml \
+kwin-addons \
+kwin-common \
+kwin-data \
+kwin-style-breeze \
+# kwin-wayland \
+# kwin-wayland-backend-drm \
+kwin-x11 \
+libblockdev2 \
+libblockdev-crypto2 \
+libblockdev-fs2 \
+libblockdev-loop2 \
+libblockdev-part2 \
+libblockdev-part-err2 \
+libblockdev-swap2 \
+libblockdev-utils2 \
+libkdecorations2-5v5 \
+libkdecorations2private9 \
+libkf5kdelibs4support5 \
+libkf5kdelibs4support5-bin \
+libkf5kdelibs4support-data \
+libkf5plasma5 \
+libkf5plasmaquick5 \
+libkwineffects13 \
+libkwinglutils13 \
+libkwinxrenderutils13 \
+libplasma-geolocation-interface5 \
+libqt5qml5 \
+libqt5qmlmodels5 \
+libqt5qmlworkerscript5 \
+neon-adwaita \
+neon-apport \
+neon-configure-inotify \
+# neon-desktop \
+neon-essentials-desktop \
+neon-hardware-integration \
+neon-keyring \
+neon-settings-2 \
+neon-ubuntu-advantage-tools \
+plasma-browser-integration \
+plasma-calendar-addons \
+plasma-dataengines-addons \
+plasma-desktop \
+plasma-desktop-data \
+plasma-discover \
+plasma-discover-backend-flatpak \
+plasma-discover-backend-snap \
+plasma-discover-common \
+plasma-disks \
+# plasma-firewall \
+plasma-framework \
+plasma-integration \
+plasma-nm \
+plasma-pa \
+plasma-runners-addons \
+plasma-systemmonitor \
+plasma-thunderbolt \
+plasma-vault \
+plasma-wallpapers-addons \
+plasma-widgets-addons \
+plasma-workspace \
+# plasma-workspace-wallpapers \
+# plasma-workspace-wayland \
+polkit-kde-agent-1 \
+qml-module-org-kde-activities \
+qml-module-org-kde-bluezqt \
+qml-module-org-kde-breeze \
+qml-module-org-kde-draganddrop \
+qml-module-org-kde-kaccounts \
+qml-module-org-kde-kcm \
+qml-module-org-kde-kconfig \
+qml-module-org-kde-kcoreaddons \
+qml-module-org-kde-kholidays \
+qml-module-org-kde-kio \
+qml-module-org-kde-kirigami2 \
+qml-module-org-kde-kitemmodels \
+qml-module-org-kde-kquickcontrols \
+qml-module-org-kde-kquickcontrolsaddons \
+qml-module-org-kde-ksysguard \
+qml-module-org-kde-kwindowsystem \
+qml-module-org-kde-newstuff \
+qml-module-org-kde-people \
+qml-module-org-kde-prison \
+qml-module-org-kde-purpose \
+qml-module-org-kde-qqc2desktopstyle \
+qml-module-org-kde-quickcharts \
+qml-module-org-kde-runnermodel \
+qml-module-org-kde-solid \
+qml-module-org-kde-sonnet \
+qml-module-org-kde-userfeedback \
+qml-module-qtgraphicaleffects \
+qml-module-qt-labs-folderlistmodel \
+qml-module-qt-labs-platform \
+qml-module-qt-labs-qmlmodels \
+qml-module-qt-labs-settings \
+qml-module-qtmultimedia \
+qml-module-qtqml \
+qml-module-qtqml-models2 \
+qml-module-qtquick2 \
+qml-module-qtquick-controls \
+qml-module-qtquick-controls2 \
+qml-module-qtquick-dialogs \
+qml-module-qtquick-layouts \
+qml-module-qtquick-particles2 \
+qml-module-qtquick-privatewidgets \
+qml-module-qtquick-shapes \
+qml-module-qtquick-templates2 \
+qml-module-qtquick-virtualkeyboard \
+qml-module-qtquick-window2 \
+qml-module-qtquick-xmllistmodel \
+qml-module-qtwebengine \
+qml-module-ubuntu-onlineaccounts \
+xdg-desktop-portal-kde
+
+
+ADD .neon/.config /etc/skel/.config
+# CORE
+COPY --from=core /rootfs/bin /
+COPY --from=core /rootfs/conf /
+RUN bash /xconf.sh
+
+ENV \
+  XDG_DESKTOP_TYPE=x11 \
+  START_SESSION="startplasma-x11" \
+  START_SYSTEMD=true
