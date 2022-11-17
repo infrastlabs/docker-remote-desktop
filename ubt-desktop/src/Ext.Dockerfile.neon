@@ -54,9 +54,12 @@ libkf5kdelibs4support5-bin \
 libkf5kdelibs4support-data \
 libkf5plasma5 \
 libkf5plasmaquick5 \
-libkwineffects13 \
-libkwinglutils13 \
-libkwinxrenderutils13 \
+# E: Package 'libkwineffects13' has no installation candidate
+#  E: Package 'libkwinglutils13' has no installation candidate
+#  E: Unable to locate package libkwinxrenderutils13
+# libkwineffects13 \ 
+# libkwinglutils13 \ #>>libkwinglutils14
+# libkwinxrenderutils13 \
 libplasma-geolocation-interface5 \
 libqt5qml5 \
 libqt5qmlmodels5 \
