@@ -33,3 +33,8 @@ jobs:
 
           # BUILD
           echo core; cd ubt-desktop; sh buildx.sh neon #elemen
+          repo=registry.cn-shenzhen.aliyuncs.com
+          # push back ali
+          img=infrastlabs/docker-headless:neon
+          docker tag $img $repo/$img
+          docker push $repo/$img
