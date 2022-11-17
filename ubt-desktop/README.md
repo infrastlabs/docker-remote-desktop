@@ -43,6 +43,50 @@ exec dbus-launch --exit-with-session gnome-session --builtin --session=ubuntu |g
 
 ```
 
+- neon
+
+```bash
+# ==part2==============
+#14 13.33 The following NEW packages will be installed:
+#14 13.33   appstream apt-config-icons apt-config-icons-hidpi apt-config-icons-large
+#14 13.33   apt-config-icons-large-hidpi cryfs encfs flatpak kde-config-gtk-style
+#14 13.33   kde-config-gtk-style-preview kde-config-plymouth kde-config-screenlocker
+#14 13.33   kde-config-sddm kde-config-updates kde-nomodeset kde-spectacle
+#14 13.33   kde-style-oxygen-qt5 kdeconnect kdegraphics-thumbnailers
+#14 13.33   kdeplasma-addons-data kpackagelauncherqml kpackagetool5 kpeople-vcard kross
+#14 13.33   kwin-addons libappstream-glib8 libavahi-glib1 libblockdev-crypto2
+#14 13.33   libbluetooth3 libcanberra-pulse libfakekey0 libflatpak0 libfwupd2 libjcat1
+#14 13.33   libkcolorpicker0 libkf5contacts-data libkf5contacts5 libkf5i18nlocaledata5
+#14 13.33   libkf5kdcraw5 libkf5kdelibs4support5-bin libkf5krosscore5 libkf5krossui5
+#14 13.33   libkf5modemmanagerqt6 libkf5prisonscanner5 libkf5pulseaudioqt3
+#14 13.33   libkf5purpose-bin libkf5purpose5 libkf5unitconversion-data
+#14 13.33   libkf5unitconversion5 libkimageannotator-common libkimageannotator0
+#14 13.33   libmalcontent-0-0 libmarkdown2 libmm-glib0 libndp0 libnewt0.52 libnm0
+#14 13.33   libopenconnect5 libostree-1-1 liboxygenstyle5-5 liboxygenstyleconfig5-5
+#14 13.33   libqca-qt5-2 libqca-qt5-2-plugins libqmobipocket2 libqt5quickparticles5
+#14 13.33   libqt5script5 libqt5webengine5 libqt5webview5 libqt5xmlpatterns5 libraw19
+#14 13.33   libsnapd-qt1 libstoken1 libteamdctl0 libtinyxml2-6a libtss2-esys0
+#14 13.33   libvolume-key1 mobile-broadband-provider-info neon-adwaita neon-apport
+#14 13.33   neon-configure-inotify neon-essentials-desktop neon-ubuntu-advantage-tools
+#14 13.33   network-manager plasma-browser-integration plasma-calendar-addons
+#14 13.33   plasma-dataengines-addons plasma-discover plasma-discover-backend-flatpak
+#14 13.33   plasma-discover-backend-snap plasma-discover-common plasma-disks plasma-nm
+#14 13.33   plasma-pa plasma-runners-addons plasma-vault plasma-wallpapers-addons
+#14 13.33   plasma-widgets-addons pulseaudio-module-gsettings qml-module-org-kde-bluezqt
+#14 13.33   qml-module-org-kde-breeze qml-module-org-kde-kaccounts
+#14 13.33   qml-module-org-kde-kio qml-module-org-kde-people qml-module-org-kde-prison
+#14 13.33   qml-module-org-kde-purpose qml-module-org-kde-runnermodel
+#14 13.33   qml-module-qtquick-particles2 qml-module-qtquick-xmllistmodel
+#14 13.33   qml-module-qtwebengine qml-module-ubuntu-onlineaccounts smartmontools sshfs
+#14 13.33   tpm-udev xdg-dbus-proxy xsettingsd
+
+
+#14 13.33 The following packages will be upgraded:
+#14 13.33   libseccomp2
+#14 17.44 1 upgraded, 115 newly installed, 3 to remove and 43 not upgraded.
+#14 17.44 Need to get 21.4 MB of archives.
+```
+
 ## 使用
 
 ```bash
