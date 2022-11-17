@@ -1,7 +1,7 @@
 FROM infrastlabs/docker-headless:core as core
 FROM infrastlabs/docker-headless:base-v5
 
-ADD .neon/public.key /tmp/
+ADD src/.neon/public.key /tmp/
 # https://github.com/KDE/docker-neon/blob/Neon/stable/neon.list
 # deb https://mirrors.bfsu.edu.cn/kde-neon/user focal main
 RUN echo "deb http://archive.neon.kde.org/testing focal main">> /etc/apt/sources.list; \
@@ -146,7 +146,7 @@ qml-module-ubuntu-onlineaccounts \
 xdg-desktop-portal-kde
 
 
-ADD .neon/.config /etc/skel/.config
+ADD src/.neon/.config /etc/skel/.config
 # CORE
 COPY --from=core /rootfs/bin /
 COPY --from=core /rootfs/conf /
