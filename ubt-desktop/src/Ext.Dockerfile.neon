@@ -7,12 +7,12 @@ ADD src/.neon/public.key /tmp/
 RUN echo "deb http://archive.neon.kde.org/testing focal main">> /etc/apt/sources.list; \
   apt-key add /tmp/public.key
 
-# NEON 312 MB
+# NEON 312 MB (Need to get 319 MB of archives.)
 # https://github.com/KDE/docker-neon/blob/Neon/stable/Dockerfile
 RUN apt.sh neon-desktop \
   plasma-systemmonitor dolphin
 
-# 32.5 MB
+# 32.5 MB (Need to get 21.4 MB of archives.)
 RUN apt.sh \
 # docker-neon \
 kde-cli-tools \
