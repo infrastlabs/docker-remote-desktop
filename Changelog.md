@@ -41,3 +41,10 @@
 - 组件编译：xrdp, pulse-audio-xrdp, tigervnc
 - 支持multi-platform: amd64, arm64, armv7
 
+## v6
+
+`24.10(tag:TODO)`
+
+- 静态编译：xrdp, pulse-audio-xrdp, tigervnc @[x11-base]()
+- 支持多发行版/多版本: Alpine, Ubuntu/Debian, openSUSE
+
