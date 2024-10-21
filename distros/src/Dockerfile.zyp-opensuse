@@ -29,11 +29,11 @@ ARG TYPE=core
 ARG VER=15.5
 # Set multiple labels at once, author,builtdate
 LABEL \
-  github.com.infrastlabs.docker-x11base.vendor=Infrastlabs \
-  github.com.infrastlabs.docker-x11base.release="production" \
-  github.com.infrastlabs.docker-x11base.version="1.0.1-beta" \
-  github.com.infrastlabs.docker-x11base.maintainer="sam <sldevsir@126.com>" \
-  github.com.infrastlabs.docker-x11base.builtdate="$(date -u +'%Y-%m-%d %H:%M:%S')"
+  github.com.infrastlabs.docker-headless.vendor=Infrastlabs \
+  github.com.infrastlabs.docker-headless.release="production" \
+  github.com.infrastlabs.docker-headless.version="1.0.1-beta" \
+  github.com.infrastlabs.docker-headless.maintainer="sam <sldevsir@126.com>" \
+  github.com.infrastlabs.docker-headless.builtdate="$(date -u +'%Y-%m-%d %H:%M:%S')"
 
 # zyp-source
 # http://mirrors.ustc.edu.cn/help/opensuse.html
@@ -91,15 +91,15 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
 
 # sakura+
 # zyp-ex: clipit pnmixer 
+# plank rofi clipit pnmixer lxappearance thunar \
+# tint2
 RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
-  zyp.sh pavucontrol \
+  zyp.sh pavucontrol pasystray xrandr \
   ibus ibus-rime flameshot \
   sakura thunar lxappearance   geany ristretto engrampa gnome-system-monitor; \
   exit 0
 
 # XFCE4
-  # plank rofi clipit pnmixer lxappearance thunar \
-  # tint2
   # xfdesktop4 > xfdesktop @opsuse15.5
 RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   # 2536 kB #18.9 MB > 14.3 MB
@@ -118,7 +118,7 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   # xrdb-font
   xrdb git \
   # vim, locale, ping; ubt:iptuils-ping; vim 2.2M;
-  iputils vim \
+  iputils vim scrot \
   # dbus-x11: perp> xfce4-session: err #hand run> xfce4-session: ok
   dbus-1-x11; \
   exit 0
@@ -138,4 +138,5 @@ EXPOSE 10089/tcp 10081/tcp 10022/tcp
 CMD ["bash", "-c", "exec /entry.sh"]
 ENV \
   TERM=xterm \
-  SHELL=/bin/bash
+  SHELL=/bin/bash \
+  START_SESSION=xfce4-session

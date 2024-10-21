@@ -9,11 +9,11 @@ ARG TYPE=core
 ARG VER=20.04
 # Set multiple labels at once, author,builtdate
 LABEL \
-  github.com.infrastlabs.docker-x11base.vendor=Infrastlabs \
-  github.com.infrastlabs.docker-x11base.release="production" \
-  github.com.infrastlabs.docker-x11base.version="1.0.1-beta" \
-  github.com.infrastlabs.docker-x11base.maintainer="sam <sldevsir@126.com>" \
-  github.com.infrastlabs.docker-x11base.builtdate="$(date -u +'%Y-%m-%d %H:%M:%S')"
+  github.com.infrastlabs.docker-headless.vendor=Infrastlabs \
+  github.com.infrastlabs.docker-headless.release="production" \
+  github.com.infrastlabs.docker-headless.version="1.0.1-beta" \
+  github.com.infrastlabs.docker-headless.maintainer="sam <sldevsir@126.com>" \
+  github.com.infrastlabs.docker-headless.builtdate="$(date -u +'%Y-%m-%d %H:%M:%S')"
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -71,8 +71,11 @@ RUN \
 
   
 # xrdb; +leafpad mousepad@app
+# 24.04_none: leafpad
+# xrandr: @x11-xserver-utils
 RUN \
-  apt.sh x11-xserver-utils leafpad ; \
+  apt.sh x11-xserver-utils ; \
+  test "24.04" != "${VER}" && apt.sh leafpad; \
   exit 0
 
 
@@ -123,6 +126,7 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
 
   # AUD img: 546MB[239M]> 560MB
   # INPUT img: 546MB[239M]> 658MB[252M]
+  # librime-data-wubi> rime-data-wubi
   RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
     apt.sh \
     # Audio 39.8 MB 
@@ -183,6 +187,7 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   
 # gparted
 # ubt14.04_none: pnmixer plank engrampa
+# xrandr: @x11-xserver-utils
 RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   apt.sh thunar dunst clipit \
   pcmanfm lxappearance \
@@ -193,7 +198,7 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   # ln -s /usr/bin/thunar /usr/bin/pcmanfm; \
   mv /usr/bin/st /usr/bin/st00; ln -s /usr/bin/sakura /usr/bin/st; \
   test "14.04" == "${VER}" && exit 0; \
-  apt.sh pnmixer plank engrampa; \
+  apt.sh pasystray plank engrampa; \
   exit 0
 
   # # wps: libxss1
@@ -217,7 +222,7 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
 # git ohmybash # \12.6 MB
 # firefox: ubt2204+>> @snap: snap install firefox
 RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
-  apt.sh git mousepad; \
+  apt.sh git mousepad scrot; \
   exit 0
 
 
@@ -229,6 +234,28 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   fonts-wqy-microhei language-pack-gnome-zh-hans; \
   \
   rm -f /usr/share/backgrounds/greybird.svg;
+
+
+###########################################################################
+# mate-session gnome-session plasma_session
+
+# mate-desktop
+# after mint-meta-mate # mate-desktop-environment-core: 5436B;
+RUN \
+  apt.sh mate-desktop-environment-core
+
+# ubuntu-desktop 128 MB
+# # gnome-tweak-tool papirus-icon-theme \
+# RUN \
+#   apt.sh ubuntu-desktop nautilus; \
+#   apt -y remove gdm3  gvfs* update-manager software-properties-common xterm;
+
+  # kubuntu-desktop 273 MB # 7054 kB #plasma-desktop 已装
+# # https://github.com/ms-jpq/kde-in-docker/blob/daddy/base/bionic/Dockerfile #nautilus > dolphin
+# RUN \
+#   apt.sh kubuntu-desktop dolphin konsole; \
+#   # KDE环境: pavucontrol图标丑出天际
+#   rm -f /home/headless/Desktop/pavucontrol.desktop;
 
 # split papirus-icon-theme: none@1604,1404
 # bunsen-papirus-icon-theme> papirus-icon-theme; ERR: 14.04 16.04 1804?
@@ -267,7 +294,8 @@ EXPOSE 10089/tcp 10081/tcp 10022/tcp
 CMD ["bash", "-c", "exec /entry.sh"]
 ENV \
   TERM=xterm \
-  SHELL=/bin/bash
+  SHELL=/bin/bash \
+  START_SESSION=xfce4-session
   # 默认约定
   # L="zh_CN" \
   # TZ="Asia/Shanghai"
