@@ -22,6 +22,30 @@ cinna   |Mint| cinnamon | ibus  | systemd | [![Docker Image Size](https://img.sh
 gnome   |Ubuntu| gnome | ibus  | systemd | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/gnome)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|Best Compatible
 plasma   |Kubuntu| plasma | ibus  | systemd | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/plasma)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★☆|Black area with Settings
 
+
+Distros/deb9 `Size: latest: 168.347 MB, slim: 88.929 MB, full: 289.581 MB`
+
+ TAG | Distro | Desktop | Input | Initd | Image |Star |Description 
+--- | --- | ---  | ---  | --- | --- | --- | ---
+deb9 |Debian| xfce | ibus  | supervisor | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/deb9)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+deb9-slim |Debian| xfce | ibus  | supervisor | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/deb9-slim)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+deb9-full |Debian| xfce | ibus  | supervisor | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/deb9-full)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+--- | --- | ---  | ---  | --- | --- | --- | ---
+alpine   |Alpine| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/alpine)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+ubuntu   |Ubuntu| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/ubuntu)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+debian   |Debian| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/debian)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+opensuse   |openSUSE| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/opensuse)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+---|---|---|---|---|---|---
+alpine-3.19   |Alpine| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/alpine-3.19)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+ubuntu-22.04   |Alpine| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/ubuntu-22.04)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+ubuntu-24.04   |Ubuntu| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/ubuntu-24.04)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+debian-10   |Debian| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/debian-10)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+debian-11   |Debian| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/debian-11)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+debian-12   |Debian| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/debian-12)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+opensuse-15.0   |openSUSE| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/opensuse-15.0)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+opensuse-15.5   |openSUSE| xfce4 | ibus  | perp | [![Docker Image Size](https://img.shields.io/docker/image-size/infrastlabs/docker-headless/opensuse-15.5)](https://hub.docker.com/r/infrastlabs/docker-headless/tags)|★★★★★|-
+
+
 ```bash
 # non-production usage with default password!!
 SSH_PASS=ChangeMe  VNC_PASS=ChangeMe2  VNC_PASS_RO=ChangeMe3
