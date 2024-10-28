@@ -1,0 +1,78 @@
+##Prod: Change Password############################
+#  SSH_PASS=ChangeMe  VNC_PASS=ChangeMe2  VNC_PASS_RO=ChangeMe3
+#  echo "headless:$SSH_PASS" |sudo chpasswd
+#  echo -e "$VNC_PASS\n$VNC_PASS\ny\n$VNC_PASS_RO\n$VNC_PASS_RO"  |sudo vncpasswd /etc/xrdp/vnc_pass; sudo chmod 644 /etc/xrdp/vnc_pass
+###################################################
+version: '2.4'
+services:
+  alpine:
+    image: ${REPO:-}infrastlabs/docker-headless:alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "bash", "-c", "sv status |grep -v '+ +++ ' && exit 1 || exit 0 "]
+    shm_size: 1g
+    hostname: headless-alpine
+    privileged: true
+    network_mode: host
+    environment:
+      - VNC_OFFSET=21 #PORT_VNC=31081 PORT_SSH=31022 PORT_RDP=31089
+      - START_SESSION=${DESK:-startfluxbox} #startfluxbox openbox-session xfce4-session
+      - L=zh_CN
+      - TZ=Asia/Shanghai
+    volumes: 
+      - /_ext:/_ext
+      - /opt:/opt
+
+  ubuntu:
+    image: ${REPO:-}infrastlabs/docker-headless:ubuntu #20.04 22.04 24.04
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "bash", "-c", "sv status |grep -v '+ +++ ' && exit 1 || exit 0 "]
+    shm_size: 1g
+    hostname: headless-ubuntu
+    privileged: true
+    network_mode: host
+    environment:
+      - VNC_OFFSET=22
+      - START_SESSION=${DESK:-startfluxbox}
+      - L=zh_CN
+      - TZ=Asia/Shanghai
+    volumes: 
+      - /_ext:/_ext
+      - /opt:/opt
+
+  opensuse:
+    image: ${REPO:-}infrastlabs/docker-headless:opensuse
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "bash", "-c", "sv status |grep -v '+ +++ ' && exit 1 || exit 0 "]
+    shm_size: 1g
+    hostname: headless-opensuse
+    privileged: true
+    network_mode: host
+    environment:
+      - VNC_OFFSET=23
+      - START_SESSION=${DESK:-startfluxbox}
+      - L=zh_CN
+      - TZ=Asia/Shanghai
+    volumes: 
+      - /_ext:/_ext
+      - /opt:/opt
+
+  debian:
+    image: ${REPO:-}infrastlabs/docker-headless:debian #20.04 22.04 24.04
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "bash", "-c", "sv status |grep -v '+ +++ ' && exit 1 || exit 0 "]
+    shm_size: 1g
+    hostname: headless-debian
+    privileged: true
+    network_mode: host
+    environment:
+      - VNC_OFFSET=24
+      - START_SESSION=${DESK:-startfluxbox}
+      - L=zh_CN
+      - TZ=Asia/Shanghai
+    volumes: 
+      - /_ext:/_ext
+      - /opt:/opt
