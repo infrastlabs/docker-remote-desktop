@@ -226,14 +226,14 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   exit 0
 
 
-# FONT, THEME, ICON
-# font-ttf: @win:msyh.zip> fonts-wqy-microhei
-RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
-  apt.sh \
-  greybird-gtk-theme \
-  fonts-wqy-microhei language-pack-gnome-zh-hans; \
-  \
-  rm -f /usr/share/backgrounds/greybird.svg;
+# # FONT, THEME, ICON
+# # font-ttf: @win:msyh.zip> fonts-wqy-microhei
+# RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
+#   apt.sh \
+#   greybird-gtk-theme \
+#   fonts-wqy-microhei language-pack-gnome-zh-hans; \
+#   \
+#   rm -f /usr/share/backgrounds/greybird.svg;
 
 
 ###########################################################################
@@ -257,33 +257,34 @@ RUN \
 #   # KDE环境: pavucontrol图标丑出天际
 #   rm -f /home/headless/Desktop/pavucontrol.desktop;
 
-# split papirus-icon-theme: none@1604,1404
-# bunsen-papirus-icon-theme> papirus-icon-theme; ERR: 14.04 16.04 1804?
-RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
-  test "14.04" == "${VER}" && exit 0; \
-  test "16.04" == "${VER}" && exit 0; \
-  test "18.04" == "${VER}" && exit 0; \
-  echo a.123; \
-  apt.sh \
-  papirus-icon-theme; \
-  \
-  # 清理ubt自带图标, keep项: hicolor 
-  # locolor gnome bloom
-  cd /usr/share/icons && rm -rf Humanity* ubuntu-mono* LoginIcons Tango; \
-  \
-  wget https://gitee.com/infrastlabs/docker-headless/raw/dev/_doc/assets/bunsen-papirus-icon-theme_10.3-2_all.deb; \
-  dpkg -i bunsen-papirus-icon-theme_10.3-2_all.deb; rm -f bunsen-papirus-icon-theme_10.3-2_all.deb; \
-  cd /usr/share/icons && rm -rf Papirus-Bunsen-Dark-bluegrey Papirus-Bunsen-Dark-grey Papirus-Dark Papirus-Light ePapirus; \
-  \
-  # Papirus left: 16x(clipit:21M) 64x(desktop:21M)
-  cd /usr/share/icons/Papirus && rm -rf 18x* 22x* 24x* 32x*  48x* 64x* ; \
-  ls -lh /usr/share/icons/Papirus; \
-  \
-  dpkg -l |grep bunsen && exit 0 || exit 1;
+# # split papirus-icon-theme: none@1604,1404
+# # bunsen-papirus-icon-theme> papirus-icon-theme; ERR: 14.04 16.04 1804?
+# RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
+#   test "14.04" == "${VER}" && exit 0; \
+#   test "16.04" == "${VER}" && exit 0; \
+#   test "18.04" == "${VER}" && exit 0; \
+#   echo a.123; \
+#   apt.sh \
+#   papirus-icon-theme; \
+#   \
+#   # 清理ubt自带图标, keep项: hicolor 
+#   # locolor gnome bloom
+#   cd /usr/share/icons && rm -rf Humanity* ubuntu-mono* LoginIcons Tango; \
+#   \
+#   wget https://gitee.com/infrastlabs/docker-headless/raw/dev/_doc/assets/bunsen-papirus-icon-theme_10.3-2_all.deb; \
+#   dpkg -i bunsen-papirus-icon-theme_10.3-2_all.deb; rm -f bunsen-papirus-icon-theme_10.3-2_all.deb; \
+#   cd /usr/share/icons && rm -rf Papirus-Bunsen-Dark-bluegrey Papirus-Bunsen-Dark-grey Papirus-Dark Papirus-Light ePapirus; \
+#   \
+#   # Papirus left: 16x(clipit:21M) 64x(desktop:21M)
+#   cd /usr/share/icons/Papirus && rm -rf 18x* 22x* 24x* 32x*  48x* 64x* ; \
+#   ls -lh /usr/share/icons/Papirus; \
+#   \
+#   dpkg -l |grep bunsen && exit 0 || exit 1;
 
 
 # 拆分包体与配置项两块，免频繁变动基础包
 # HEADLESS
+COPY --from=rootfs /rootfs/res_ubt_share /
 COPY --from=rootfs /rootfs/files1 /
 COPY --from=rootfs /rootfs/files2 /
 RUN \

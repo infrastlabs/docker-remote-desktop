@@ -5,19 +5,19 @@ FROM ${REPO}infrastlabs/x11-base:rootfs AS rootfs
 
 # 20.04> 24.04: betterThemeView
 # TODO: FROM --platform=linux/amd64
-FROM --platform=linux/amd64 registry.cn-shenzhen.aliyuncs.com/infrastlabs/x11-base:app-ubuntu-24.04 AS ubt
-FROM scratch AS res
-  COPY --from=ubt /usr/share/themes/Greybird /usr/share/themes/Greybird
-  COPY --from=ubt /usr/share/themes/Greybird-compact /usr/share/themes/Greybird-compact
-  COPY --from=ubt /usr/share/themes/Greybird-dark /usr/share/themes/Greybird-dark
-  COPY --from=ubt /usr/share/icons/Papirus /usr/share/icons/Papirus
-  COPY --from=ubt /usr/share/icons/Papirus-Bunsen-bluegrey /usr/share/icons/Papirus-Bunsen-bluegrey
-  COPY --from=ubt /usr/share/icons/Papirus-Bunsen-grey /usr/share/icons/Papirus-Bunsen-grey
-  COPY --from=ubt /usr/share/locale /usr/share/locale
-  COPY --from=ubt /usr/share/fonts/DejaVuSansMono /usr/share/fonts/DejaVuSansMono
-  COPY --from=ubt /usr/share/fonts/truetype/wqy /usr/share/fonts/truetype/wqy
-  COPY --from=ubt /etc/fonts /etc/fonts
-  #COPY --from=ubt /usr/share/
+# FROM --platform=linux/amd64 registry.cn-shenzhen.aliyuncs.com/infrastlabs/x11-base:app-ubuntu-24.04 AS ubt
+# FROM scratch AS res
+#   COPY --from=ubt /usr/share/themes/Greybird /usr/share/themes/Greybird
+#   COPY --from=ubt /usr/share/themes/Greybird-compact /usr/share/themes/Greybird-compact
+#   COPY --from=ubt /usr/share/themes/Greybird-dark /usr/share/themes/Greybird-dark
+#   COPY --from=ubt /usr/share/icons/Papirus /usr/share/icons/Papirus
+#   COPY --from=ubt /usr/share/icons/Papirus-Bunsen-bluegrey /usr/share/icons/Papirus-Bunsen-bluegrey
+#   COPY --from=ubt /usr/share/icons/Papirus-Bunsen-grey /usr/share/icons/Papirus-Bunsen-grey
+#   COPY --from=ubt /usr/share/locale /usr/share/locale
+#   COPY --from=ubt /usr/share/fonts/DejaVuSansMono /usr/share/fonts/DejaVuSansMono
+#   COPY --from=ubt /usr/share/fonts/truetype/wqy /usr/share/fonts/truetype/wqy
+#   COPY --from=ubt /etc/fonts /etc/fonts
+#   #COPY --from=ubt /usr/share/
 
 ## ref kube-cmd/src/Dockerfile
 # FROM alpine:3.13.12
@@ -206,6 +206,7 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
 
 
 # HEADLESS
+COPY --from=rootfs /rootfs/res_ubt_share /
 COPY --from=rootfs /rootfs/files1 /
 COPY --from=rootfs /rootfs/files2 /
 RUN \
@@ -213,7 +214,7 @@ RUN \
   exit 0;
 
 # HEADLESS2
-COPY --from=res / /
+# COPY --from=res / /
 
 EXPOSE 10089/tcp 10081/tcp 10022/tcp
 CMD ["bash", "-c", "exec /entry.sh"]
