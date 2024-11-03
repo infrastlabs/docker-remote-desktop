@@ -67,7 +67,7 @@ $src/infrastlabs/docker-headless:ubuntu: $dst/infrastlabs/docker-headless:ubuntu
 $src/infrastlabs/docker-headless:debian: $dst/infrastlabs/docker-headless:debian
 $src/infrastlabs/docker-headless:opensuse: $dst/infrastlabs/docker-headless:opensuse
 $src/infrastlabs/docker-headless:alpine-3.19: $dst/infrastlabs/docker-headless:alpine-3.19
-$src/infrastlabs/docker-headless:ubuntu-20.04: $dst/infrastlabs/docker-headless:ubuntu-20.04
+# $src/infrastlabs/docker-headless:ubuntu-20.04: $dst/infrastlabs/docker-headless:ubuntu-20.04
 $src/infrastlabs/docker-headless:ubuntu-22.04: $dst/infrastlabs/docker-headless:ubuntu-22.04
 $src/infrastlabs/docker-headless:ubuntu-24.04: $dst/infrastlabs/docker-headless:ubuntu-24.04
 $src/infrastlabs/docker-headless:debian-10: $dst/infrastlabs/docker-headless:debian-10
