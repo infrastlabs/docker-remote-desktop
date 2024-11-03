@@ -93,6 +93,7 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
 # zyp-ex: clipit pnmixer 
 # plank rofi clipit pnmixer lxappearance thunar \
 # tint2
+# pnmixer> pasystray
 RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   zyp.sh pavucontrol pasystray xrandr \
   ibus ibus-rime flameshot \

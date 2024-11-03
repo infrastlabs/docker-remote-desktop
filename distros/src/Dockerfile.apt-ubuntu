@@ -187,9 +187,10 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   
 # gparted
 # ubt14.04_none: pnmixer plank engrampa
-# xrandr: @x11-xserver-utils
+# pnmixer> pasystray
+# xrandr @x11-xserver-utils
 RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
-  apt.sh thunar dunst clipit \
+  apt.sh thunar dunst clipit pasystray \
   pcmanfm lxappearance \
   sakura geany ristretto gnome-system-monitor; \
   # misc2
@@ -198,7 +199,7 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
   # ln -s /usr/bin/thunar /usr/bin/pcmanfm; \
   mv /usr/bin/st /usr/bin/st00; ln -s /usr/bin/sakura /usr/bin/st; \
   test "14.04" == "${VER}" && exit 0; \
-  apt.sh pasystray plank engrampa; \
+  apt.sh plank engrampa; \
   exit 0
 
   # # wps: libxss1
@@ -220,9 +221,22 @@ RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
 
 # OHMYBASH
 # git ohmybash # \12.6 MB
+RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
+  apt.sh git mousepad; \
+  exit 0
+
+# xrdb; +leafpad mousepad@app
+# 24.04_none: leafpad
+# xrandr: @x11-xserver-utils
+RUN \
+  apt.sh x11-xserver-utils git mousepad scrot ; \
+  test "24.04" != "${VER}" && apt.sh leafpad; \
+  exit 0
+
 # firefox: ubt2204+>> @snap: snap install firefox
 RUN test "app" != "$TYPE" && exit 0 || echo appInstall;\
-  apt.sh git mousepad scrot; \
+  match1=$(echo "${VER}" |grep -E "22.04$|24.04$"); \
+  test -z "$match1" && apt.sh firefox; \
   exit 0
 
 
